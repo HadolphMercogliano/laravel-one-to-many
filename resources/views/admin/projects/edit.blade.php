@@ -23,6 +23,13 @@
 					<input type="text" name="title" id="title" class="form-control mb-3"
 						value="{{ old('title') ?? $project->title }}">
 
+					<select class="form-select">
+						<option value="">Nessun tipo</option>
+						@foreach ($types as $type)
+							<option value="{{ $type->id }}">{{ $type->label }}</option>
+						@endforeach
+					</select>
+
 					<label for="is_published">published</label>
 					<input type="checkbox" name="is_published" id="is_published" class="form-check-control mb-3"
 						@checked(old('is_published', $project->is_published)) value="1" />
