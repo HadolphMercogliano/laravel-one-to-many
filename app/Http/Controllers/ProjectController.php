@@ -40,7 +40,8 @@ class ProjectController extends Controller
       $data = $this->validation($request->all());
         // dd($data);
         if(Arr::exists($data, 'link')) {
-          Storage::put('', $data['link']);
+          $path = Storage::put('projectImages', $data['link']);
+          $data['link'] = $path;
         }
 
         $project = new Project;        
@@ -75,11 +76,18 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
       $data = $this->validation($request->all());
+
+      if(Arr::exists($data, 'link')) {
+        if($project->link) Storage::delete($project->link);
+          $path = Storage::put('projectImages', $data['link']);
+          $data['link'] = $path;
+        }
+
       $project->update($data);
 
       return redirect()->route('admin.projects.show', $project)
-      ->with('message_type', 'alert-success')
-      ->with('message_content', 'Progetto modificato correttamente');
+            ->with('message_type', 'alert-success')
+            ->with('message_content', 'Progetto modificato correttamente');
     }
 
     /**
@@ -87,13 +95,53 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+      $project_id = $project->id;
 
-      
       $project->delete();
+      return to_route('admin.projects.index')
+            ->with('message_type', 'alert-danger')
+            ->with('message_content', "Progetto $project_id spostato nel cestino");
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function forceDelete(Int $id)
+    {
+      $project = Project::where('id', $id)->onlyTrashed()->first();
+
+      if($project->link) Storage::delete($project->link);
+      
+      $project->forceDelete();
+
+      return to_route('admin.projects.trash')
+            ->with('message_type', 'alert-danger')
+            ->with('message_content', "Progetto $id eliminato correttamente");
+    }
+
+    /**
+     * Restore the specified resource from storage.
+     */
+    public function restore(Int $id)
+    {
+      $project = Project::where('id', $id)->onlyTrashed()->first();      
+      $project->restore();
 
       return to_route('admin.projects.index')
-      ->with('message_type', 'alert-danger')
-      ->with('message_content', 'Progetto eliminato correttamente');
+            ->with('message_type', 'alert-success')
+            ->with('message_content', "Progetto $id ripristinato");
+    }
+
+    /**
+     * Display a listing of the trashed resources.
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function trash(Request  $request) {
+
+      $sort = (!empty($sort_request = $request->get('sort'))) ? $sort_request : "updated_at";
+      $order = (!empty($order_request = $request->get('order'))) ? $order_request : "DESC";
+      $projects = Project::onlyTrashed()->orderBy($sort, $order)->paginate(10)->withQueryString();
+      return view('admin.projects.trash', compact('projects', 'sort', 'order'));
     }
     
     private function validation($data) {
@@ -102,7 +150,8 @@ class ProjectController extends Controller
         [
           'title' =>'required|string',
           'description' =>'required|string',
-          'link' =>'required|image|mimes: jpg,png, jpeg',
+          'link' =>'image|mimes: jpg,png, jpeg',
+          'is_published' =>'boolean'
         ],
         [
           'title.required' => 'Il nome del progetto è obbligatorio',
@@ -111,9 +160,9 @@ class ProjectController extends Controller
           'description.required' => 'La descrizione del progetto è obbligatoria',
           'description.string' => 'La descrizione del progetto deve essere una stringa',
 
-          'link.required' => 'Il link del progetto è obbligatorio',
           'link.image' => 'Il file caricato deve essere un immagine',
           'link.mimes' => 'le estenzioni dei file accettate sono: jpg, png, jpeg.',
+          'is_published.boolean' => 'Il valore deve essere un booleano'
         ]
         )->validate();
         return $validator;

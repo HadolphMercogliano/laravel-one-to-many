@@ -1,38 +1,49 @@
 @extends('layouts.app')
 
 @section('title')
-<div class="container">
-<div class="d-flex align-items-center justify-content-between">
-  <h3 class="my-4"> Modifica Progetto</h3>
+	<div class="container">
+		<div class="d-flex align-items-center justify-content-between">
+			<h3 class="my-4"> Modifica Progetto</h3>
 
-<a href="{{route('admin.projects.index')}}" class="btn btn-primary">Torna all'indice</a>
+			<a href="{{ route('admin.projects.index') }}" class="btn btn-primary">Torna all'indice</a>
 
-  </div>
-</div>
-
-    
+		</div>
+	</div>
 @endsection
 
 @section('content')
-    <div class="container">
-      <div class="card">
-        <div class="card-body">
-          <form method="POST" action="{{route('admin.projects.update', $project)}}">
-          @csrf
-          @method('put')
+	<div class="container">
+		<div class="card">
+			<div class="card-body">
+				<form method="POST" action="{{ route('admin.projects.update', $project) }}" enctype="multipart/form-data">
+					@csrf
+					@method('put')
 
-            <label for="title">title</label>
-            <input type="text" name="title" id="title" class="form-control mb-3" value="{{ old('title') ?? $project->title }}">
+					<label for="title">title</label>
+					<input type="text" name="title" id="title" class="form-control mb-3"
+						value="{{ old('title') ?? $project->title }}">
 
-            <label for="link">link</label>  
-            <input type="text" name="link" id="link" class="form-control mb-3" value="{{ old('link') ?? $project->link }}">
+					<label for="is_published">published</label>
+					<input type="checkbox" name="is_published" id="is_published" class="form-check-control mb-3"
+						@checked(old('is_published', $project->is_published)) value="1" />
 
-            <label for="description">description</label>  
-            <textarea type="textarea" name="description" id="description" class="form-control mb-3" rows="3">{{ old('description') ?? $project->description }}</textarea>
+					<div class="row align-items-center">
+						<div class="col-10">
+							<label for="link">link</label>
+							<input type="file" name="link" id="link" class="form-control mb-3"
+								value="{{ old('link') ?? $project->link }}">
+						</div>
+						<div class="col-2">
+							<img class="img-fluid" src="{{ $project->getLinkUri() }}" alt="">
+						</div>
+					</div>
 
-            <input type="submit" class="btn btn-primary" value="Salva">
-          </form>
-        </div>
-      </div>
-    </div>
+					<label for="description">description</label>
+					<textarea type="textarea" name="description" id="description" class="form-control mb-3" rows="3">{{ old('description') ?? $project->description }}</textarea>
+
+					<input type="submit" class="btn btn-primary" value="Salva">
+				</form>
+			</div>
+		</div>
+	</div>
 @endsection
