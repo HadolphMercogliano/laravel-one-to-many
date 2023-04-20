@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Guest\GuestHomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,10 +26,15 @@ Route::middleware('auth')
 ->prefix('admin')
 ->name('admin.')
 ->group(function() {
+
+  // ! projects resource
   Route::get('/projects/trash',[ProjectController::class, 'trash'])->name('projects.trash');
   Route::put('/projects/{project}/restore',[ProjectController::class, 'restore'])->name('projects.restore');
   Route::delete('/projects/{project}/force-delete',[ProjectController::class, 'forceDelete'])->name('projects.force-delete');
   Route::resource('projects', ProjectController::class);
+
+  // ! types resource
+  Route::resource('types', TypeController::class);
 });
 
 Route::middleware('auth')
