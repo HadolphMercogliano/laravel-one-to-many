@@ -11,10 +11,13 @@ class TypeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-      $types = type::all();
-      return view('admin.types.index', compact('types'));
+      $sort = (!empty($sort_request = $request->get('sort'))) ? $sort_request : "updated_at";
+      $order = (!empty($order_request = $request->get('order'))) ? $order_request : "DESC";
+      $types = Type::orderBy($sort, $order)->paginate(10)->withQueryString();
+      
+      return view('admin.types.index', compact('types','sort', 'order'));
     }
 
     /**

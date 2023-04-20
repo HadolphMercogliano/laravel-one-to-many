@@ -3,9 +3,9 @@
 @section('title')
 	<div class="container">
 		<div class="d-flex align-items-center justify-content-between">
-			<h3 class="my-4"> Progetto: {{ $project->title }}</h3>
+			<h3 class="my-4"> Tipologia: {{ $type->label }}</h3>
 
-			<a href="{{ route('admin.projects.index') }}" class="btn btn-primary">Torna all'indice</a>
+			<a href="{{ route('admin.types.index') }}" class="btn btn-primary">Torna all'indice</a>
 
 		</div>
 	</div>
@@ -15,20 +15,17 @@
 	<div class="container">
 
 		<div class="row justify-content-center align-items-center mb-3">
-			<div class="card col-8 p-3">
+			<div class="card col-12 p-3">
 				<div class="card-body d-flex justify-content-between align-items-center">
-					<div class="">
 
-						<h3 class="card-title mb-4 ">Titolo: {{ $project->title }}</h3>
-						<p class="card-text mb-4 "><strong>Tipologia:</strong> <span class="badge rounded-pill"
-								style="background-color:{{ $project->type?->color }} ">{{ $project->type?->label }}</span></p>
+					<h3 class="card-title mb-4 "><strong>Label:</strong> {{ $type->label }}</h3>
+					<p class="card-text mb-4"><strong>Colore:</strong> <span class="badge rounded-pill"
+							style="background-color:{{ $type->color }} ">{{ $type->color }}</span></p>
 
-						<p class="">Descrizione: {{ $project->description }}</p>
-					</div>
-					<img class="img-fluid col-4 mb-3" src="{{ $project->getLinkUri() }}" alt="{{ $project->title }}">
+					<p class="card-text mb-4"><strong>Data creazione:</strong> <br>{{ $type->created_at }}</p>
+					<p class="card-text mb-4"><strong>Ultima modifica:</strong> <br>{{ $type->updated_at }}</p>
+
+					<a href="{{ route('admin.types.edit', $type) }}" class=" btn btn-primary"> Modifica tipologia</a>
 				</div>
-				<a href="{{ route('admin.projects.edit', $project) }}" class=" btn btn-primary"> Modifica progetto</a>
 			</div>
-		</div>
-	</div>
-@endsection
+		@endsection
