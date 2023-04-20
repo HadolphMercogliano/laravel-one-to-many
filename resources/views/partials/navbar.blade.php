@@ -21,7 +21,7 @@
 			<!-- Left Side Of Navbar -->
 			<ul class="navbar-nav me-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
+					<a class="nav-link" href="{{ url('/') }}">{{ __('Vista Progetti') }}</a>
 				</li>
 			</ul>
 
@@ -38,6 +38,21 @@
 						</li>
 					@endif
 				@else
+					<li class="nav-item">
+						<a class="nav-link" href="{{ route('home') }}">{{ __('Lista progetti') }}</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ route('admin.types.index') }}">{{ __('Lista tipologie') }}</a>
+					</li>
+
+					{{-- <li class="nav-item">
+						<a class="nav-link" href="{{ route('logout') }}"
+							onclick="event.preventDefault();
+              document.getElementById('logout-form').submit();">
+							{{ __('Logout') }}
+						</a>
+					</li> --}}
+
 					<li class="nav-item dropdown">
 						<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false" v-pre>
@@ -45,13 +60,13 @@
 						</a>
 
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="{{ route('home') }}">{{ __('User Home') }}</a>
+
 							{{-- <a class="dropdown-item" href="{{ route('admin.projects.index') }}">{{__('Lista Progetti')}}</a> --}}
-							<a class="dropdown-item" href="{{ route('admin.types.index') }}">{{ __('Lista tipologie') }}</a>
+							{{-- <a class="dropdown-item" href="{{ route('admin.types.index') }}">{{ __('Lista tipologie') }}</a> --}}
 							<a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a>
 							<a class="dropdown-item" href="{{ route('logout') }}"
 								onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                document.getElementById('logout-form').submit();">
 								{{ __('Logout') }}
 							</a>
 

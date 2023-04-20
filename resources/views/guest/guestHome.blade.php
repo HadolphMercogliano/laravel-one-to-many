@@ -2,7 +2,7 @@
 @section('content')
 	<div class="container">
 		<h2 class="fs-4 text-secondary my-4">
-			{{ __('home') }}
+			{{ __('Progetti Publicati') }}
 		</h2>
 		<div class="row mb-4 justify-content-center">
 			@foreach ($published_projects as $project)
