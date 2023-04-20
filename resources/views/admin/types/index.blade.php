@@ -60,6 +60,7 @@
 								<a type="button" class="text-danger" data-bs-toggle="modal" data-bs-target="#delete-modal-{{ $type->id }}">
 									<i class="bi bi-trash mx-2"></i>
 								</a>
+
 								@foreach ($types as $type)
 									<!-- Modal -->
 									<div class="modal fade text-dark" id="delete-modal-{{ $type->id }}" tabindex="-1"

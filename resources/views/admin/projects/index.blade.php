@@ -55,7 +55,8 @@
 					<tr>
 						<th scope="row">{{ $project->id }}</th>
 						<td>{{ $project->title }}</td>
-						<td>{{ $project->type?->label }}</td>
+						<td><span class="badge rounded-pill p-2 d-inline-block me-3"
+								style="background-color:{{ $project->type?->color }} ">{{ $project->type?->label }}</span></td>
 						<td>{{ $project->getAbstract() }}</td>
 						<td>{{ $project->getLinkUri() }}</td>
 

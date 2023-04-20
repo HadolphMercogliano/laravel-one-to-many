@@ -21,8 +21,10 @@
 					<label for="label">Label</label>
 					<input type="text" name="label" id="label" class="form-control mb-3">
 
-					<label for="color">Colore</label>
-					<input type="text" name="color" id="color" class="form-control mb-3">
+					<div class="col-1">
+						<label for="color">Colore</label>
+						<input type="color" name="color" id="color" class="form-control mb-3">
+					</div>
 
 					<input type="submit" class="btn btn-primary" value="Salva">
 				</form>

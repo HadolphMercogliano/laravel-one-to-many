@@ -23,8 +23,11 @@
 					<input type="text" name="label" id="label" class="form-control mb-3"
 						value="{{ old('label') ?? $type->label }}">
 
-					<label for="color">Colore</label>
-					<input name="color" id="color" class="form-select mb-3" value="{{ old('color') ?? $type->color }}">
+					<div class="col-1">
+						<label for="color">Colore</label>
+						<input type="color" name="color" id="color" class="form-select mb-3"
+							value="{{ old('color') ?? $type->color }}">
+					</div>
 
 					<input type="submit" class="btn btn-primary" value="Salva">
 				</form>
