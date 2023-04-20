@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->boolean('is_published')->default(0);
-            $table->string('description');
+            $table->text('description');
             $table->string('link')->nullable();    
             $table->timestamps();
         });

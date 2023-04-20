@@ -18,7 +18,7 @@
 			<div class="card col-8 p-3">
 				<div class="card-body d-flex justify-content-between align-items-center">
 					<div class="">
-						{{-- @dump($project->type?->label) --}}
+						@dump($project->type?->label)
 						<h3 class="card-title mb-4 ">Titolo: {{ $project->title }}</h3>
 						<p class="">Descrizione: {{ $project->description }}</p>
 					</div>

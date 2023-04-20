@@ -10,7 +10,7 @@ class Project extends Model
 {
     use HasFactory, SoftDeletes;
     
-    protected $fillable = ['title', 'is_published', 'description', 'link' ];
+    protected $fillable = ['title', 'is_published', 'description', 'link','type_id' ];
   
     // RELATIONS
 
