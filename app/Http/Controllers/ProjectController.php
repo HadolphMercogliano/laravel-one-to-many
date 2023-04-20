@@ -153,7 +153,7 @@ class ProjectController extends Controller
           'description' =>'required|string',
           'link' =>'image|mimes: jpg,png, jpeg',
           'is_published' =>'boolean',
-          'type_id' => 'numeric'
+          'type_id' => 'nullable'
         ],
         [
           'title.required' => 'Il nome del progetto è obbligatorio',
@@ -165,7 +165,7 @@ class ProjectController extends Controller
           'link.image' => 'Il file caricato deve essere un immagine',
           'link.mimes' => 'le estenzioni dei file accettate sono: jpg, png, jpeg.',
           'is_published.boolean' => 'Il valore deve essere un booleano',
-          'type_id.numeric' => 'Il valore deve essere un numero'
+          
         ]
         )->validate();
         return $validator;
