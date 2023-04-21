@@ -30,19 +30,23 @@
 				<!-- Authentication Links -->
 				@guest
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+						<a class="nav-link @if (request()->routeIs('login')) text-primary @endif"
+							href="{{ route('login') }}">{{ __('Login') }}</a>
 					</li>
 					@if (Route::has('register'))
 						<li class="nav-item">
-							<a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+							<a class="nav-link  @if (request()->routeIs('register')) text-primary @endif"
+								href="{{ route('register') }}">{{ __('Register') }}</a>
 						</li>
 					@endif
 				@else
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('home') }}">{{ __('Lista progetti') }}</a>
+						<a class="nav-link @if (request()->routeIs('home')) text-primary @endif"
+							href="{{ route('home') }}">{{ __('Lista progetti') }}</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('admin.types.index') }}">{{ __('Lista tipologie') }}</a>
+						<a class="nav-link @if (request()->routeIs('admin.types*')) text-primary @endif"
+							href="{{ route('admin.types.index') }}">{{ __('Lista tipologie') }}</a>
 					</li>
 
 					{{-- <li class="nav-item">
